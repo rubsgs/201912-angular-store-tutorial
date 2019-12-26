@@ -1,15 +1,35 @@
 <h2>Products</h2>
-
+<!-- 
+  *ngFor é um foreach, products é um array que é uma propriedade de product-list.component.ts e product é utilizada para percorrer a lista de produtos.
+  (*ngFor é uma diretiva do Angular )
+-->
 <div *ngFor="let product of products; index as productId">
   <h3>
+    <!--
+      Para acessar uma variável/propriedade fora das marcações HTML, utiliza-se a notação {{}}(chamado de interpolation)
+
+      Para setar o atributo/propriedade do elemento HTML utiliza-se a notação [] (chamado de property binding)
+    -->
     <a [title]="product.name + ' details'" [routerLink]="['/products', productId]">{{product.name}}</a>
   </h3>
 
+  <!--
+    *ngIf é um IF, o elemento é renderizado apenas se a condição for verdadeira
+  -->
   <p *ngIf="product.description">
     Description: {{product.description}}
   </p>
+  <!--
 
+    Para fazer o evento do click é utilizada a notação () - (event binding)
+  -->
   <button (click)="share()">Share</button>
+  <!-- 
+    app-product-alerts possui o botão Notify Me, que é exibido somente quando o preço do produto é maior que 700, o evento notify é emitido pelo próprio componente utilizado notify.emit dentro de product-alerts.component.html e .ts
+
+    [product] é uma propriedade de product-alerts que possui o decorador @Input, o valor passado entre aspas é o product que está sendo usado dentro de product-list
+    notifiy é um evento criato em product-alerts.ts utilizando a classe EventEmitter. 
+  -->
   <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
 </div>
 <!-- 
